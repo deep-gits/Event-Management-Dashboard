@@ -14,7 +14,10 @@ export default function Register() {
         e.preventDefault();
         setError('');
         try {
-            await axios.post('http://localhost:8080/api/auth/register', { name, email, password, role });
+            
+            const API_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
+            await axios.post(`${API_URL}/api/auth/register`, { name, email, password, role });
+            
             navigate('/login');
         } catch (err) {
             setError(err.response?.data || 'Registration failed');
@@ -69,7 +72,6 @@ export default function Register() {
                                 onChange={(e) => setRole(e.target.value)}
                             >
                                 <option value="USER">Attendee User</option>
-                            
                             </select>
                         </div>
                     </div>
